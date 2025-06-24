@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using MetadataExtractor;
+using Microsoft.Extensions.Logging;
+using Directory = System.IO.Directory;
 
 namespace Copymelia.Core.Services;
 
@@ -39,6 +41,10 @@ public class ImageProcessor
             if (_imageExtensions.Contains(info.Extension))
             {
                 Images.Add(info);
+                // var metaDir = ImageMetadataReader.ReadMetadata(file);
+                // foreach (var metaFile in metaDir)
+                //     foreach(var tag in metaFile.Tags)
+                //         _logger.LogDebug($"{tag.Name} - {tag.Name} = {tag.Description}");
                 _logger.LogInformation($"Added image {info.FullName}");
             }
         }

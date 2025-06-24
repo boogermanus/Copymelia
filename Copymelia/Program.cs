@@ -16,6 +16,7 @@ host.ConfigureServices(services =>
 host.ConfigureAppConfiguration(builder =>
 {
     builder.AddCommandLine(args);
+    builder.AddJsonFile("appsettings.json");
 });
 
 var build = host.Build();
