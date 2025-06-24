@@ -11,7 +11,7 @@ host.ConfigureServices(services =>
 {
     services.AddLogging(builder => { builder.AddConsole();});
     services.AddSingleton<App>();
-    services.AddSingleton<ImageProcessor>();
+    services.AddSingleton<FileProcessor>();
 });
 host.ConfigureAppConfiguration(builder =>
 {

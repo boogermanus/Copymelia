@@ -7,29 +7,29 @@ public class App
 {
     private readonly ILogger _logger;
     private readonly IConfiguration _configuration;
-    private readonly ImageProcessor _imageProcessor;
-    private string _imagesDirectory;
-    public App(ILogger<App> logger, IConfiguration configuration, ImageProcessor imageProcessor)
+    private readonly FileProcessor _fileProcessor;
+    private string _path;
+    public App(ILogger<App> logger, IConfiguration configuration, FileProcessor fileProcessor)
     {
         _logger = logger;
         _configuration = configuration;
-        _imageProcessor = imageProcessor;
+        _fileProcessor = fileProcessor;
     }
 
     public void Run()
     {
         ValidateConfiguration();
-        _imageProcessor.Process(_imagesDirectory);
+        _fileProcessor.Process(_path);
     }
 
     private void ValidateConfiguration()
     {
-        var images = _configuration["images"];
+        var path = _configuration["path"];
 
-        if(!Path.Exists(images))
-            _logger.LogError($"Path {images} does not exist");
+        if(!Path.Exists(path))
+            _logger.LogError($"Path {path} does not exist");
         
-        _imagesDirectory = images;
+        _path = path;
         
     }
 }
