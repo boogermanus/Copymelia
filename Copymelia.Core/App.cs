@@ -1,23 +1,18 @@
-﻿using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 
 namespace Copymelia.Core;
 
-public class App : BackgroundService
+public class App 
 {
     private readonly ILogger _logger;
-    private readonly IHostApplicationLifetime _applicationLifetime;
     
-    public App(ILogger<App> logger, IHostApplicationLifetime applicationLifetime)
+    public App(ILogger<App> logger)
     {
         _logger = logger; 
-        _applicationLifetime = applicationLifetime;
     }
-    
-    protected override Task ExecuteAsync(CancellationToken stoppingToken)
+
+    public void Run()
     {
         _logger.LogInformation("Hello World!");
-        _applicationLifetime.StopApplication();
-        return Task.CompletedTask;
     }
 }

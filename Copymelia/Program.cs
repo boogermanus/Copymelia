@@ -9,9 +9,11 @@ var host = Host.CreateDefaultBuilder(args);
 host.ConfigureServices(services =>
 {
     services.AddLogging(builder => { builder.AddConsole();});
-    services.AddHostedService<App>();
+    services.AddSingleton<App>();
 });
 
-var app = host.Build();
-app.Run();
+var build = host.Build();
+var app = build.Services.GetService<App>();
+app?.Run();
+
 
