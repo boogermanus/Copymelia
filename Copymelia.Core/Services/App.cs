@@ -31,6 +31,9 @@ public class App
         if(!Directory.Exists(options.Path))
             _logger.LogError($"Path '{options.Path}' does not exist");
         
+        if(!Directory.Exists(options.Output))
+            _logger.LogError($"Output directory '{options.Output}' does not exist");
+        
         if(options.WhatIf)
             _logger.LogInformation("WhatIf is enabled");
         
