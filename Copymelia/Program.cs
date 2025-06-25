@@ -11,7 +11,6 @@ host.ConfigureServices(services =>
 {
     services.AddLogging(builder => { builder.AddConsole();});
     services.AddSingleton<App>();
-    services.AddSingleton<FileProcessor>();
 });
 host.ConfigureAppConfiguration(builder =>
 {
@@ -21,6 +20,6 @@ host.ConfigureAppConfiguration(builder =>
 
 var build = host.Build();
 var app = build.Services.GetService<App>();
-app?.Run();
+app?.Run(args);
 
 

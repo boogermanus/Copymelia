@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System.Net.Security;
+using CommandLine;
+using Copymelia.Core.Models;
 using Microsoft.Extensions.Logging;
 
 namespace Copymelia.Core.Services;
@@ -6,30 +8,31 @@ namespace Copymelia.Core.Services;
 public class App 
 {
     private readonly ILogger _logger;
-    private readonly IConfiguration _configuration;
-    private readonly FileProcessor _fileProcessor;
-    private string _path;
-    public App(ILogger<App> logger, IConfiguration configuration, FileProcessor fileProcessor)
+    private Options _options;
+    public App(ILogger<App> logger)
     {
         _logger = logger;
-        _configuration = configuration;
-        _fileProcessor = fileProcessor;
     }
 
-    public void Run()
+    public void Run(string[] args)
     {
-        ValidateConfiguration();
-        _fileProcessor.Process(_path);
+        ParseArguments(args);
     }
 
-    private void ValidateConfiguration()
+    private void ParseArguments(string[] args)
     {
-        var path = _configuration["path"];
+        Parser.Default.ParseArguments<Options>(args)
+            .WithParsed(HandleParse)
+            .WithNotParsed(HandleParseError);
+    }
 
-        if(!Path.Exists(path))
-            _logger.LogError($"Path {path} does not exist");
-        
-        _path = path;
-        
+    private void HandleParse(Options options)
+    {
+        if(!Directory.Exists(options.Path))
+            _logger.LogError($"Path '{options.Path}' does not exist");
+    }
+    private void HandleParseError(IEnumerable<Error> errors)
+    {
+        errors.ToList().ForEach(e => _logger.LogDebug(e.ToString()));
     }
 }
