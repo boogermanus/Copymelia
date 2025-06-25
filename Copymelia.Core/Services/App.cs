@@ -1,5 +1,4 @@
-﻿using System.Net.Security;
-using CommandLine;
+﻿using CommandLine;
 using Copymelia.Core.Models;
 using Microsoft.Extensions.Logging;
 
@@ -12,6 +11,7 @@ public class App
     public App(ILogger<App> logger)
     {
         _logger = logger;
+        _options = new Options();
     }
 
     public void Run(string[] args)
@@ -33,6 +33,8 @@ public class App
         
         if(options.WhatIf)
             _logger.LogInformation("WhatIf is enabled");
+        
+        _options = options;
     }
     private void HandleParseError(IEnumerable<Error> errors)
     {
