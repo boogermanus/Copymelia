@@ -30,6 +30,9 @@ public class App
     {
         if(!Directory.Exists(options.Path))
             _logger.LogError($"Path '{options.Path}' does not exist");
+        
+        if(options.WhatIf)
+            _logger.LogInformation("WhatIf is enabled");
     }
     private void HandleParseError(IEnumerable<Error> errors)
     {
