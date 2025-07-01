@@ -1,22 +1,25 @@
 ﻿using CommandLine;
-using Copymelia.Core.Models;
+using Copymelia.Models;
 using Microsoft.Extensions.Logging;
 
-namespace Copymelia.Core.Services;
+namespace Copymelia.Services;
 
 public class App 
 {
     private readonly ILogger _logger;
     private Options _options;
-    public App(ILogger<App> logger)
+    private FileProcessor _fileProcessor;
+    public App(ILogger<App> logger, FileProcessor processor)
     {
         _logger = logger;
         _options = new Options();
+        _fileProcessor = processor;
     }
 
     public void Run(string[] args)
     {
         ParseArguments(args);
+        _fileProcessor.Process(_options);
     }
 
     private void ParseArguments(string[] args)

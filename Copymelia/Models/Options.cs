@@ -1,6 +1,6 @@
 ﻿using CommandLine;
 
-namespace Copymelia.Core.Models;
+namespace Copymelia.Models;
 
 public class Options
 {
