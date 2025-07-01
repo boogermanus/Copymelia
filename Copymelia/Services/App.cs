@@ -9,6 +9,7 @@ public class App
     private readonly ILogger _logger;
     private Options _options;
     private FileProcessor _fileProcessor;
+    private bool _canRun;
     public App(ILogger<App> logger, FileProcessor processor)
     {
         _logger = logger;
@@ -19,31 +20,35 @@ public class App
     public void Run(string[] args)
     {
         ParseArguments(args);
-        _fileProcessor.Process(_options);
+        if(_canRun)
+            _fileProcessor.Process(_options);
     }
 
     private void ParseArguments(string[] args)
     {
         Parser.Default.ParseArguments<Options>(args)
-            .WithParsed(HandleParse)
-            .WithNotParsed(HandleParseError);
+            .WithParsed(HandleParse);
+
     }
 
     private void HandleParse(Options options)
     {
-        if(!Directory.Exists(options.Path))
+        if (!Directory.Exists(options.Path))
+        {
             _logger.LogError($"Path '{options.Path}' does not exist");
-        
-        if(!Directory.Exists(options.Output))
+            return;
+        }
+
+        if (!Directory.Exists(options.Output))
+        {
             _logger.LogError($"Output directory '{options.Output}' does not exist");
-        
+            return;
+        }
+
         if(options.WhatIf)
             _logger.LogInformation("WhatIf is enabled");
         
         _options = options;
-    }
-    private void HandleParseError(IEnumerable<Error> errors)
-    {
-        errors.ToList().ForEach(e => _logger.LogDebug(e.ToString()));
+        _canRun = true;
     }
 }

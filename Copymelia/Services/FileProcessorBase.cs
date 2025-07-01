@@ -7,11 +7,12 @@ public abstract class FileProcessorBase
 {
     protected ILogger Logger { get; }
     protected Options Options { get; set; }
-    protected int Files { get; set; } = 0;
+    private int Files { get; set; } = 0;
 
     public FileProcessorBase(ILogger logger)
     {
         Logger = logger;
+        Options = new Options();
     }
     
     public void Process(Options options)
