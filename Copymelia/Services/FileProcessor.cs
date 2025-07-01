@@ -5,10 +5,6 @@ namespace Copymelia.Services;
 
 public class FileProcessor : FileProcessorBase
 {
-
-    private readonly ILogger<FileProcessor> _logger;
-    private Options _options;
-    private int _files = 0;
     private readonly IEnumerable<string> _imageExtensions = [".jpg", ".jpeg", ".png"];
     private readonly IEnumerable<string> _documentExtensions =
     [
@@ -39,6 +35,6 @@ public class FileProcessor : FileProcessorBase
     public FileProcessor(ILogger<FileProcessor> logger): base(logger) {}
     protected override void ProcessFile(string file)
     {
-        Logger.LogInformation($"Processed File: {file}");
+        Logger.LogInformation($"Processed File: '{file}'");
     }
 }
