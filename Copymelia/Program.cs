@@ -6,17 +6,12 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
 
-var host = Host.CreateDefaultBuilder(args);
-host.ConfigureServices(services =>
-{
-    services.AddLogging(builder => { builder.AddConsole();});
-    services.AddSingleton<App>();
-});
-host.ConfigureAppConfiguration(builder =>
-{
-    builder.AddCommandLine(args);
-    builder.AddJsonFile("appsettings.json");
-});
+var host = Host.CreateApplicationBuilder();
+host.Services.AddLogging(builder => {builder.AddConsole();});
+host.Services.AddSingleton<App>();
+
+host.Configuration.AddCommandLine(args);
+host.Configuration.AddJsonFile("appsettings.json");
 
 var build = host.Build();
 var app = build.Services.GetService<App>();

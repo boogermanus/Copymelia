@@ -1,12 +1,9 @@
-﻿using MetadataExtractor;
-using Microsoft.Extensions.Logging;
-using Directory = System.IO.Directory;
+﻿using Microsoft.Extensions.Logging;
 
 namespace Copymelia.Core.Services;
 
 public class FileProcessor : FileProcessorBase<FileProcessor>
 {
-    private readonly ILogger<FileProcessor> _logger;
     private readonly IEnumerable<string> _imageExtensions = [".jpg", ".jpeg", ".png"];
 
     private readonly IEnumerable<string> _documentExtensions =
@@ -24,16 +21,12 @@ public class FileProcessor : FileProcessorBase<FileProcessor>
         ".xls",
         ".pptx",
         ".potx",
-        ".ppt"
+        ".ppt",
+        ".txt"
     ];
 
-    private readonly List<FileInfo> _images = new();
-    private readonly List<FileInfo> _documents = new();
-
-    public FileProcessor(ILogger<FileProcessor> logger) : base(logger)
-    {
-        _logger = logger;
-    }
+    private readonly IEnumerable<string> _videoExtensions = [];
+    public FileProcessor(ILogger<FileProcessor> logger) : base(logger) { }
 
     protected override void ProcessFile(string filePath)
     {
