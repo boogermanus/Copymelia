@@ -23,6 +23,7 @@ var app = build.Services.GetService<App>();
 app?.Run(args);
 
 // so dumb, but you have to do this in order to flush the logs
+Console.Out.Flush();
 Console.WriteLine("Press any key to exit");
 Console.ReadLine();
 
