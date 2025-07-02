@@ -25,6 +25,9 @@ public class FileProcessor : FileProcessorBase
         if(info.IsAudio())
             Logger.LogInformation($"Identified music: {info.Name}");
         
+        if(info.IsZip())
+            Logger.LogInformation($"Identified zip: {info.Name}");
+        
         Logger.LogInformation($"Processed File: '{file}'");
     }
 }

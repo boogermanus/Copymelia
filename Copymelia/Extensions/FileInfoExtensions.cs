@@ -23,4 +23,11 @@ public static class FileInfoExtensions
     {
         return FileExtensions.AudioExtension == file.Extension;
     }
+    
+    public static bool IsZip(this FileInfo file)
+    {
+        return FileExtensions.ZipExtension == file.Extension;
+    }
+    
+    
 }

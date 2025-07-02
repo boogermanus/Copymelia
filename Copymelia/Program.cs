@@ -12,6 +12,7 @@ host.Logging.AddConsole();
 
 host.Services.AddSingleton<App>();
 host.Services.AddSingleton<FileProcessor>();
+host.Services.AddSingleton<OutputDirector>();
 
 host.Configuration.AddCommandLine(args);
 host.Configuration.AddJsonFile("appsettings.json");

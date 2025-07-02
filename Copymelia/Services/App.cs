@@ -8,20 +8,25 @@ public class App
 {
     private readonly ILogger _logger;
     private Options _options;
-    private FileProcessor _fileProcessor;
+    private readonly FileProcessor _fileProcessor;
+    private readonly OutputDirector _outputDirector;
     private bool _canRun;
-    public App(ILogger<App> logger, FileProcessor processor)
+    public App(ILogger<App> logger, FileProcessor processor, OutputDirector director)
     {
         _logger = logger;
         _options = new Options();
         _fileProcessor = processor;
+        _outputDirector = director;
     }
 
     public void Run(string[] args)
     {
         ParseArguments(args);
-        if(_canRun)
+        if (_canRun)
+        {
+            _outputDirector.Build(_options);
             _fileProcessor.Process(_options);
+        }
     }
 
     private void ParseArguments(string[] args)
@@ -36,12 +41,6 @@ public class App
         if (!Directory.Exists(options.Path))
         {
             _logger.LogError($"Path '{options.Path}' does not exist");
-            return;
-        }
-
-        if (!Directory.Exists(options.Output))
-        {
-            _logger.LogError($"Output directory '{options.Output}' does not exist");
             return;
         }
 
