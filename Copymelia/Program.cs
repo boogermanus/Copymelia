@@ -7,7 +7,9 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
 
 var host = Host.CreateApplicationBuilder();
+
 host.Logging.AddConsole();
+
 host.Services.AddSingleton<App>();
 host.Services.AddSingleton<FileProcessor>();
 
@@ -16,7 +18,9 @@ host.Configuration.AddJsonFile("appsettings.json");
 
 var build = host.Build();
 var app = build.Services.GetService<App>();
+
 app?.Run(args);
+
 // so dumb, but you have to do this in order to flush the logs
 Console.WriteLine("Press any key to exit");
 Console.ReadLine();
