@@ -22,11 +22,11 @@ public class App
     public void Run(string[] args)
     {
         ParseArguments(args);
-        if (_canRun)
-        {
-            _outputDirector.Build(_options);
-            _fileProcessor.Process(_options);
-        }
+        
+        if (!_canRun) return;
+        
+        _outputDirector.Build(_options);
+        _fileProcessor.Process(_options);
     }
 
     private void ParseArguments(string[] args)
