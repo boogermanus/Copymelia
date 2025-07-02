@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
 
 var host = Host.CreateApplicationBuilder();
-host.Services.AddLogging(builder => {builder.AddConsole();});
+host.Logging.AddConsole();
 host.Services.AddSingleton<App>();
 host.Services.AddSingleton<FileProcessor>();
 
