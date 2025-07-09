@@ -49,13 +49,15 @@ public class FileProcessor : FileProcessorBase
 
     private void MoveFile(FileInfo file, string destination)
     {
+        var outputDirectory = Path.Combine(Options.Output, destination);
         if (Options.WhatIf)
         {
-            Logger.LogInformation($"WhatIf moving {file.FullName} to {destination}");
+            Logger.LogInformation(
+                $"WhatIf moving {file.FullName} to {Path.Combine(outputDirectory, file.Name)}");
         }
         else
         {
-            _moveDirector.Move(file, destination);
+            _moveDirector.Move(file, outputDirectory);
         }
     }
 }
