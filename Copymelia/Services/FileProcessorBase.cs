@@ -1,4 +1,6 @@
-﻿using Copymelia.Models;
+﻿using Copymelia.Constants;
+using Copymelia.Extensions;
+using Copymelia.Models;
 using Microsoft.Extensions.Logging;
 
 namespace Copymelia.Services;
@@ -8,11 +10,13 @@ public abstract class FileProcessorBase
     protected ILogger Logger { get; }
     protected Options Options { get; set; }
     private int Files { get; set; } = 0;
+    private readonly MoveDirector _moveDirector;
 
-    public FileProcessorBase(ILogger logger)
+    public FileProcessorBase(ILogger logger, MoveDirector moveDirector)
     {
         Logger = logger;
         Options = new Options();
+        _moveDirector = moveDirector;
     }
     
     public void Process(Options options)
@@ -46,6 +50,47 @@ public abstract class FileProcessorBase
             ProcessFile(file);
         }
     }
+
+    protected virtual void ProcessFile(string file)
+    {
+        var info = new FileInfo(file);
+
+        if (info.IsImage())
+        {
+            Logger.LogInformation($"Identified image: {info.Name}");
+            MoveFile(info, OutputDirectories.ImagesDirectory);
+        }
+
+        if (info.IsDocument())
+        {
+            Logger.LogInformation($"Identified document: {info.Name}");
+            MoveFile(info, OutputDirectories.DocumentsDirectory);
+        }
+
+        if (info.IsVideo())
+        {
+            Logger.LogInformation($"Identified video: {info.Name}");
+            MoveFile(info, OutputDirectories.VideosDirectory);
+        }
+
+        if (info.IsAudio())
+        {
+            Logger.LogInformation($"Identified music: {info.Name}");
+            MoveFile(info, OutputDirectories.AudioDirectory);
+        }
+    }
+    private void MoveFile(FileInfo file, string destination)
+    {
+        var outputDirectory = Path.Combine(Options.Output, destination);
+        if (Options.WhatIf)
+        {
+            Logger.LogInformation(
+                $"WhatIf moving {file.FullName} to {Path.Combine(outputDirectory, file.Name)}");
+        }
+        else
+        {
+            _moveDirector.Move(file, outputDirectory);
+        }
+    }
     
-    protected abstract void ProcessFile(string file);
 }

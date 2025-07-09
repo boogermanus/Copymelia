@@ -15,42 +15,28 @@ public class OutputDirector
     
     public void Build(Options options)
     {
-        if (!Path.Exists(options.Output))
-        {
-            _logger.LogInformation($"Creating output directory '{options.Output}'");
-            Directory.CreateDirectory(options.Output);
-        }
+        CreatePathIfNotExists(options.Output, $"Creating output directory '{options.Output}'");
         
         var imagesPath = Path.Combine(options.Output, OutputDirectories.ImagesDirectory);
-
-        if (!Path.Exists(imagesPath))
-        {
-            _logger.LogInformation($"Creating images directory '{imagesPath}'");
-            Directory.CreateDirectory(imagesPath);
-        }
+        CreatePathIfNotExists(imagesPath, $"Creating images directory '{imagesPath}'");
         
         var documentsPath = Path.Combine(options.Output, OutputDirectories.DocumentsDirectory);
-
-        if (!Path.Exists(documentsPath))
-        {
-            _logger.LogInformation($"Creating documents directory '{documentsPath}'");
-            Directory.CreateDirectory(documentsPath);
-        }
+        CreatePathIfNotExists(documentsPath, $"Creating output directory '{documentsPath}'");
         
         var videosPath = Path.Combine(options.Output, OutputDirectories.VideosDirectory);
-
-        if (!Path.Exists(videosPath))
-        {
-            _logger.LogInformation($"Creating videos directory '{videosPath}'");
-            Directory.CreateDirectory(videosPath);
-        }
+        CreatePathIfNotExists(videosPath, $"Creating documents directory '{videosPath}'");
         
         var audioPath = Path.Combine(options.Output, OutputDirectories.AudioDirectory);
+        CreatePathIfNotExists(audioPath, $"Creating audio directory '{audioPath}'");
+        
+        var zipTempPath = Path.Combine(options.Output, OutputDirectories.ZipTempDirectory);
+        CreatePathIfNotExists(zipTempPath, $"Creating zip file '{zipTempPath}'");
+    }
 
-        if (!Path.Exists(audioPath))
-        {
-            _logger.LogInformation($"Creating audio directory '{audioPath}'");
-            Directory.CreateDirectory(audioPath);
-        }
+    private void CreatePathIfNotExists(string path, string loggerMessage)
+    {
+        if(Path.Exists(path)) return;
+        _logger.LogInformation(loggerMessage);
+        Directory.CreateDirectory(path);
     }
 }
