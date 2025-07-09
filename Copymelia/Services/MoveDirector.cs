@@ -14,7 +14,7 @@ public class MoveDirector
     {
         var moved = false;
         var newPath = Path.Combine(destination, source.Name);
-        var count = 0;
+        var count = 1;
         while (!moved)
         {
             try
