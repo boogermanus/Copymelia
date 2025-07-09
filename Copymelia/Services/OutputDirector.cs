@@ -1,4 +1,5 @@
-﻿using Copymelia.Models;
+﻿using Copymelia.Constants;
+using Copymelia.Models;
 using Microsoft.Extensions.Logging;
 
 namespace Copymelia.Services;
@@ -6,10 +7,7 @@ namespace Copymelia.Services;
 public class OutputDirector
 {
     private readonly ILogger<OutputDirector> _logger;
-    private readonly string _imagesDirectory = "images";
-    private readonly string _documentsDirectory = "documents";
-    private readonly string _videosDirectory = "videos";
-    private readonly string _audioDirectory = "audio";
+
     public OutputDirector(ILogger<OutputDirector> logger)
     {
         _logger = logger;
@@ -23,7 +21,7 @@ public class OutputDirector
             Directory.CreateDirectory(options.Output);
         }
         
-        var imagesPath = Path.Combine(options.Output, _imagesDirectory);
+        var imagesPath = Path.Combine(options.Output, OutputDirectories.ImagesDirectory);
 
         if (!Path.Exists(imagesPath))
         {
@@ -31,7 +29,7 @@ public class OutputDirector
             Directory.CreateDirectory(imagesPath);
         }
         
-        var documentsPath = Path.Combine(options.Output, _documentsDirectory);
+        var documentsPath = Path.Combine(options.Output, OutputDirectories.DocumentsDirectory);
 
         if (!Path.Exists(documentsPath))
         {
@@ -39,7 +37,7 @@ public class OutputDirector
             Directory.CreateDirectory(documentsPath);
         }
         
-        var videosPath = Path.Combine(options.Output, _videosDirectory);
+        var videosPath = Path.Combine(options.Output, OutputDirectories.VideosDirectory);
 
         if (!Path.Exists(videosPath))
         {
@@ -47,7 +45,7 @@ public class OutputDirector
             Directory.CreateDirectory(videosPath);
         }
         
-        var audioPath = Path.Combine(options.Output, _audioDirectory);
+        var audioPath = Path.Combine(options.Output, OutputDirectories.AudioDirectory);
 
         if (!Path.Exists(audioPath))
         {
