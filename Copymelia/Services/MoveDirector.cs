@@ -19,8 +19,8 @@ public class MoveDirector
         {
             try
             {
-                // File.Move(source.FullName, newPath);
-                File.Copy(source.FullName, newPath);
+                File.Move(source.FullName, newPath);
+                // File.Copy(source.FullName, newPath);
                 moved = true;
                 _logger.LogInformation($"Moved {source.FullName} to {newPath}");
             }
