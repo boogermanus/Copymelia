@@ -30,7 +30,7 @@ public class OutputDirector
         CreatePathIfNotExists(audioPath, $"Creating audio directory '{audioPath}'");
         
         var zipTempPath = Path.Combine(Path.GetTempPath(), OutputDirectories.ZipTempDirectory);
-        CreatePathIfNotExists(zipTempPath, $"Creating zip file '{zipTempPath}'");
+        CreatePathIfNotExists(zipTempPath, $"Creating zip temp directory '{zipTempPath}'");
     }
 
     private void CreatePathIfNotExists(string path, string loggerMessage)

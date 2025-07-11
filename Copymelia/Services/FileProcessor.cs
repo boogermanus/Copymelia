@@ -17,10 +17,10 @@ public class FileProcessor : FileProcessorBase
         base.ProcessFile(file);
         var info = new FileInfo(file);
 
-        if (info.IsZip())
+        if (info.IsZip() && info.Name.ToLower().Contains("backup"))
         {
             Logger.LogInformation($"Identified zip: {info.Name}");
-            _zipFileProcessor.ProcessZipFile(info.FullName);
+            _zipFileProcessor.ProcessZipFile(Options, info.FullName);
         }
 
         Logger.LogInformation($"Processed File: '{file}'");

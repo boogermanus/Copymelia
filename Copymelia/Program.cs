@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 var host = Host.CreateApplicationBuilder();
 
-host.Logging.AddConsole();
+host.Logging.AddSimpleConsole();
 
 host.Services.AddSingleton<App>();
 host.Services.AddSingleton<FileProcessor>();
