@@ -46,6 +46,12 @@ public class App
 
         if(options.WhatIf)
             _logger.LogInformation("WhatIf is enabled");
+
+        if (options.Mode != "move" || options.Mode != "copy")
+        {
+            _logger.LogError($"Mode '{options.Mode}' is not a valid mode'");
+            return;
+        }
         
         _options = options;
         _canRun = true;

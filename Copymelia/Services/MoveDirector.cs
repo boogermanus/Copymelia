@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Copymelia.Constants;
+using Microsoft.Extensions.Logging;
 
 namespace Copymelia.Services;
 
@@ -10,7 +11,7 @@ public class MoveDirector
     {
         _logger = logger;
     }
-    public void Move(FileInfo source, string destination)
+    public void Move(FileInfo source, string destination, string mode = "move")
     {
         var moved = false;
         var newPath = Path.Combine(destination, source.Name);
@@ -19,7 +20,10 @@ public class MoveDirector
         {
             try
             {
-                File.Move(source.FullName, newPath);
+                if (mode == Modes.Move)
+                    File.Move(source.FullName, newPath);
+                else
+                    File.Copy(source.FullName, newPath);
                 // File.Copy(source.FullName, newPath);
                 moved = true;
                 _logger.LogInformation($"Moved {source.FullName} to {newPath}");

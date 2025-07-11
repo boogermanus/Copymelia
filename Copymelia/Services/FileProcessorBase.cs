@@ -89,7 +89,15 @@ public abstract class FileProcessorBase
         }
         else
         {
-            _moveDirector.Move(file, outputDirectory);
+            switch (Options.Mode)
+            {
+                case Modes.Move:
+                    _moveDirector.Move(file, outputDirectory);
+                    break;
+                case Modes.Copy:
+                    _moveDirector.Move(file, outputDirectory, Modes.Copy);
+                    break;
+            }
         }
     }
     
