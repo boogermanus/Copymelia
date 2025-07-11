@@ -29,7 +29,7 @@ public class OutputDirector
         var audioPath = Path.Combine(options.Output, OutputDirectories.AudioDirectory);
         CreatePathIfNotExists(audioPath, $"Creating audio directory '{audioPath}'");
         
-        var zipTempPath = Path.Combine(options.Output, OutputDirectories.ZipTempDirectory);
+        var zipTempPath = Path.Combine(Path.GetTempPath(), OutputDirectories.ZipTempDirectory);
         CreatePathIfNotExists(zipTempPath, $"Creating zip file '{zipTempPath}'");
     }
 

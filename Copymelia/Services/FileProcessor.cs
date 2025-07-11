@@ -1,17 +1,15 @@
-﻿using System.IO.Compression;
-using Copymelia.Constants;
-using Copymelia.Extensions;
+﻿using Copymelia.Extensions;
 using Microsoft.Extensions.Logging;
 
 namespace Copymelia.Services;
 
 public class FileProcessor : FileProcessorBase
 {
-    private readonly MoveDirector _moveDirector;
-
-    public FileProcessor(ILogger<FileProcessor> logger, MoveDirector moveDirector) : base(logger, moveDirector)
+    private readonly ZipFileProcessor _zipFileProcessor;
+    public FileProcessor(ILogger<FileProcessor> logger, MoveDirector moveDirector, ZipFileProcessor zipFileProcessor) 
+        : base(logger, moveDirector)
     {
-        _moveDirector = moveDirector;
+        _zipFileProcessor = zipFileProcessor;
     }
 
     protected override void ProcessFile(string file)
@@ -22,6 +20,7 @@ public class FileProcessor : FileProcessorBase
         if (info.IsZip())
         {
             Logger.LogInformation($"Identified zip: {info.Name}");
+            _zipFileProcessor.ProcessZipFile(info.FullName);
         }
 
         Logger.LogInformation($"Processed File: '{file}'");

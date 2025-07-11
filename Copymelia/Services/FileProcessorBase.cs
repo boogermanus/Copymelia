@@ -30,7 +30,7 @@ public abstract class FileProcessorBase
         Logger.LogInformation($"Files processed: {Files}");
     }
     
-    private void ProcessDirectories(IEnumerable<string> directories)
+    protected void ProcessDirectories(IEnumerable<string> directories)
     {
         foreach (var directory in directories)
         {
@@ -41,7 +41,7 @@ public abstract class FileProcessorBase
         }
     }
     
-    private void ProcessFiles(IEnumerable<string> files)
+    protected void ProcessFiles(IEnumerable<string> files)
     {
         foreach (var file in files)
         {
