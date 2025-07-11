@@ -1,4 +1,5 @@
 ﻿using CommandLine;
+using Copymelia.Constants;
 using Copymelia.Models;
 using Microsoft.Extensions.Logging;
 
@@ -47,7 +48,7 @@ public class App
         if(options.WhatIf)
             _logger.LogInformation("WhatIf is enabled");
 
-        if (options.Mode != "move" || options.Mode != "copy")
+        if (options.Mode != Modes.Move && options.Mode != Modes.Copy)
         {
             _logger.LogError($"Mode '{options.Mode}' is not a valid mode'");
             return;
