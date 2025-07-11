@@ -12,7 +12,7 @@ public class Options
     
     [Option(Default = false, Required = false, HelpText = "Scan but do not operate on results")]
     public bool WhatIf { get; set; }
-    
-    [Option(Default = "move", Required = false, HelpText= "Mode [move|copy] move by default")]
-    public string Mode { get; set; }
+
+    [Option(Default = "move", Required = false, HelpText = "Mode [move|copy] move by default")]
+    public string Mode { get; set; } = "move";
 }
