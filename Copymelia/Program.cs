@@ -13,7 +13,6 @@ host.Logging.AddSimpleConsole();
 host.Services.AddSingleton<App>();
 host.Services.AddSingleton<FileProcessor>();
 host.Services.AddSingleton<OutputDirector>();
-host.Services.AddSingleton<MoveDirector>();
 host.Services.AddSingleton<ZipFileProcessor>();
 
 host.Configuration.AddCommandLine(args);

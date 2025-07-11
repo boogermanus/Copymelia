@@ -10,13 +10,13 @@ public abstract class FileProcessorBase
     protected ILogger Logger { get; }
     protected Options Options { get; set; }
     public int Files { get; set; }
-    private readonly MoveDirector _moveDirector;
+    private readonly OutputDirector _outputDirector;
 
-    public FileProcessorBase(ILogger logger, MoveDirector moveDirector)
+    public FileProcessorBase(ILogger logger, OutputDirector outputDirector)
     {
         Logger = logger;
         Options = new Options();
-        _moveDirector = moveDirector;
+        _outputDirector = outputDirector;
     }
     
     public void Process(Options options)
@@ -92,10 +92,10 @@ public abstract class FileProcessorBase
             switch (Options.Mode)
             {
                 case Modes.Move:
-                    _moveDirector.Move(file, outputDirectory);
+                    _outputDirector.HandleFile(file, outputDirectory);
                     break;
                 case Modes.Copy:
-                    _moveDirector.Move(file, outputDirectory, Modes.Copy);
+                    _outputDirector.HandleFile(file, outputDirectory, Modes.Copy);
                     break;
             }
         }

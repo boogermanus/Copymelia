@@ -6,8 +6,8 @@ namespace Copymelia.Services;
 public class FileProcessor : FileProcessorBase
 {
     private readonly ZipFileProcessor _zipFileProcessor;
-    public FileProcessor(ILogger<FileProcessor> logger, MoveDirector moveDirector, ZipFileProcessor zipFileProcessor) 
-        : base(logger, moveDirector)
+    public FileProcessor(ILogger<FileProcessor> logger, OutputDirector outputDirector, ZipFileProcessor zipFileProcessor) 
+        : base(logger, outputDirector)
     {
         _zipFileProcessor = zipFileProcessor;
     }

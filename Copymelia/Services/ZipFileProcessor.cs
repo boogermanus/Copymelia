@@ -9,7 +9,7 @@ public class ZipFileProcessor : FileProcessorBase
 {
     private readonly ILogger<ZipFileProcessor> _logger;
 
-    public ZipFileProcessor(ILogger<ZipFileProcessor> logger, MoveDirector moveDirector) : base(logger, moveDirector)
+    public ZipFileProcessor(ILogger<ZipFileProcessor> logger, OutputDirector outputDirector) : base(logger, outputDirector)
     {
         _logger = logger;
     }

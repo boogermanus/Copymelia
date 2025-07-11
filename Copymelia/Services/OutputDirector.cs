@@ -39,4 +39,29 @@ public class OutputDirector
         _logger.LogInformation(loggerMessage);
         Directory.CreateDirectory(path);
     }
+    
+    public void HandleFile(FileInfo source, string destination, string mode = "move")
+    {
+        var moved = false;
+        var newPath = Path.Combine(destination, source.Name);
+        var count = 1;
+        while (!moved)
+        {
+            try
+            {
+                if (mode == Modes.Move)
+                    File.Move(source.FullName, newPath);
+                else
+                    File.Copy(source.FullName, newPath);
+                // File.Copy(source.FullName, newPath);
+                moved = true;
+                _logger.LogInformation($"Moved {source.FullName} to {newPath}");
+            }
+            catch (IOException)
+            {
+                newPath = Path.Combine(destination,
+                    $"{Path.GetFileNameWithoutExtension(source.FullName)}_{count++}{source.Extension}");
+            }
+        }
+    }
 }
