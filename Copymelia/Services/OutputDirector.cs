@@ -55,7 +55,7 @@ public class OutputDirector
                     File.Copy(source.FullName, newPath);
                 // File.Copy(source.FullName, newPath);
                 moved = true;
-                _logger.LogInformation($"Handled {mode} to {source.FullName} to {newPath}");
+                _logger.LogInformation($"Handled {mode} for {source.FullName} to {newPath}");
             }
             catch (IOException)
             {
