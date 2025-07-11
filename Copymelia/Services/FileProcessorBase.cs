@@ -58,28 +58,28 @@ public abstract class FileProcessorBase
         if (info.IsImage())
         {
             Logger.LogInformation($"Identified image: {info.Name}");
-            MoveFile(info, OutputDirectories.ImagesDirectory);
+            HandleFile(info, OutputDirectories.ImagesDirectory);
         }
 
         if (info.IsDocument())
         {
             Logger.LogInformation($"Identified document: {info.Name}");
-            MoveFile(info, OutputDirectories.DocumentsDirectory);
+            HandleFile(info, OutputDirectories.DocumentsDirectory);
         }
 
         if (info.IsVideo())
         {
             Logger.LogInformation($"Identified video: {info.Name}");
-            MoveFile(info, OutputDirectories.VideosDirectory);
+            HandleFile(info, OutputDirectories.VideosDirectory);
         }
 
         if (info.IsAudio())
         {
             Logger.LogInformation($"Identified music: {info.Name}");
-            MoveFile(info, OutputDirectories.AudioDirectory);
+            HandleFile(info, OutputDirectories.AudioDirectory);
         }
     }
-    private void MoveFile(FileInfo file, string destination)
+    private void HandleFile(FileInfo file, string destination)
     {
         var outputDirectory = Path.Combine(Options.Output, destination);
         if (Options.WhatIf)
