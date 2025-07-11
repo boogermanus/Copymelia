@@ -38,5 +38,8 @@ public class ZipFileProcessor : FileProcessorBase
         // cleanup temp dir
         Directory.Delete(extractPath, true);
         _logger.LogInformation("Removed directory {directory}", extractPath);
+        
+        // reset file counter
+        Files = 0;
     }
 }

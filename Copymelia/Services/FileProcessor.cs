@@ -21,6 +21,7 @@ public class FileProcessor : FileProcessorBase
         {
             Logger.LogInformation($"Identified zip: {info.Name}");
             _zipFileProcessor.ProcessZipFile(Options, info.FullName);
+            Files += _zipFileProcessor.Files;
         }
 
         Logger.LogInformation($"Processed File: '{file}'");

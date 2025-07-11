@@ -9,7 +9,7 @@ public abstract class FileProcessorBase
 {
     protected ILogger Logger { get; }
     protected Options Options { get; set; }
-    private int Files { get; set; } = 0;
+    public int Files { get; set; }
     private readonly MoveDirector _moveDirector;
 
     public FileProcessorBase(ILogger logger, MoveDirector moveDirector)
