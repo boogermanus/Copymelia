@@ -40,10 +40,10 @@ public class OutputDirector
         Directory.CreateDirectory(path);
     }
     
-    public void HandleFile(FileInfo source, string destination, string mode = "move")
+    public void HandleFile(FileInfo file, string destination, string mode = "move")
     {
         var moved = false;
-        var newPath = GetOutputDirectoryForFile(source, destination);
+        var newPath = Path.Combine(GetOutputDirectoryForFile(file, destination), file.Name);
         var count = 1;
         
         while (!moved)
@@ -51,17 +51,21 @@ public class OutputDirector
             try
             {
                 if (mode == Modes.Move)
-                    File.Move(source.FullName, newPath);
+                    File.Move(file.FullName, newPath);
                 else
-                    File.Copy(source.FullName, newPath);
-                // File.Copy(source.FullName, newPath);
+                    File.Copy(file.FullName, newPath);
+
                 moved = true;
-                _logger.LogInformation($"Handled {mode} for {source.FullName} to {newPath}");
+                _logger.LogInformation($"Handled {mode} for {file.FullName} to {newPath}");
             }
             catch (IOException)
             {
-                newPath = Path.Combine(destination,
-                    $"{Path.GetFileNameWithoutExtension(source.FullName)}_{count++}{source.Extension}");
+                newPath = Path.Combine(GetOutputDirectoryForFile(file, destination),
+                    $"{Path.GetFileNameWithoutExtension(file.FullName)}_{count++}{file.Extension}");
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"{e.Message}{Environment.NewLine}{e.StackTrace}");
             }
         }
     }
@@ -74,6 +78,6 @@ public class OutputDirector
         
         if (!Directory.Exists(yearPath)) Directory.CreateDirectory(yearPath);
         
-        return Path.Combine(yearPath, info.Name);
+        return yearPath;
     }
 }
