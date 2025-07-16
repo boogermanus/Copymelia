@@ -1,6 +1,6 @@
 ﻿using Copymelia.Core.Constants;
 using Copymelia.Extensions;
-using Copymelia.Models;
+using Copymelia.Core.Models;
 using Microsoft.Extensions.Logging;
 
 namespace Copymelia.Services;
