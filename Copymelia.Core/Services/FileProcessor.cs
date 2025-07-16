@@ -1,7 +1,7 @@
-﻿using Copymelia.Extensions;
+﻿using Copymelia.Core.Extensions;
 using Microsoft.Extensions.Logging;
 
-namespace Copymelia.Services;
+namespace Copymelia.Core.Services;
 
 public class FileProcessor : FileProcessorBase
 {

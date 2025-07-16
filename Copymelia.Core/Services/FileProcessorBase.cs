@@ -1,9 +1,9 @@
 ﻿using Copymelia.Core.Constants;
-using Copymelia.Extensions;
+using Copymelia.Core.Extensions;
 using Copymelia.Core.Models;
 using Microsoft.Extensions.Logging;
 
-namespace Copymelia.Services;
+namespace Copymelia.Core.Services;
 
 public abstract class FileProcessorBase
 {

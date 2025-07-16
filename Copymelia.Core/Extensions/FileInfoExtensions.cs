@@ -1,6 +1,6 @@
 ﻿using Copymelia.Core.Constants;
 
-namespace Copymelia.Extensions;
+namespace Copymelia.Core.Extensions;
 
 public static class FileInfoExtensions
 {

@@ -2,7 +2,7 @@
 using Copymelia.Core.Models;
 using Microsoft.Extensions.Logging;
 
-namespace Copymelia.Services;
+namespace Copymelia.Core.Services;
 
 public class OutputDirector
 {
