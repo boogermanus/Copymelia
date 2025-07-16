@@ -1,4 +1,4 @@
-﻿using Copymelia.Constants;
+﻿using Copymelia.Core.Constants;
 
 namespace Copymelia.Extensions;
 

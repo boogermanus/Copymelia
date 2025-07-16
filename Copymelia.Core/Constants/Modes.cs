@@ -1,4 +1,4 @@
-﻿namespace Copymelia.Constants;
+﻿namespace Copymelia.Core.Constants;
 
 public static class Modes
 {

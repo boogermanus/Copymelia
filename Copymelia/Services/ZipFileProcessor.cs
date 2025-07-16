@@ -1,5 +1,5 @@
 ﻿using System.IO.Compression;
-using Copymelia.Constants;
+using Copymelia.Core.Constants;
 using Copymelia.Models;
 using Microsoft.Extensions.Logging;
 
