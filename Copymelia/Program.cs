@@ -16,7 +16,10 @@ host.Services.AddSingleton<OutputDirector>();
 host.Services.AddSingleton<ZipFileProcessor>();
 
 host.Configuration.AddCommandLine(args);
-host.Configuration.AddJsonFile("appsettings.json");
+host.Configuration
+    .SetBasePath(AppContext.BaseDirectory)
+    .AddJsonFile("appsettings.json")
+    .Build();
 
 var build = host.Build();
 var app = build.Services.GetService<App>();

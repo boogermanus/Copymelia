@@ -17,6 +17,12 @@ public class ZipFileProcessor : FileProcessorBase
     public void ProcessZipFile(Options options, string zipPath)
     {
         Options = options;
+
+        if (Options.WhatIf)
+        {
+            _logger.LogInformation($"WhatIf processing zip file {zipPath}");
+            return;
+        }
         // extract
         var extractPath = Path.Combine(Path.Combine(Path.GetTempPath(), OutputDirectories.ZipTempDirectory),
             Path.GetFileNameWithoutExtension(zipPath));
