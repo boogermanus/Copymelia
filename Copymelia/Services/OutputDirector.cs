@@ -43,7 +43,7 @@ public class OutputDirector
     public void HandleFile(FileInfo source, string destination, string mode = "move")
     {
         var moved = false;
-        var newPath = Path.Combine(destination, source.Name);
+        var newPath = GetOutputDirectoryForFile(source, destination);
         var count = 1;
         
         while (!moved)
@@ -64,5 +64,16 @@ public class OutputDirector
                     $"{Path.GetFileNameWithoutExtension(source.FullName)}_{count++}{source.Extension}");
             }
         }
+    }
+
+    public string GetOutputDirectoryForFile(FileInfo info, string path)
+    {
+        var year = info.CreationTime.Year.ToString();
+
+        var yearPath = Path.Combine(path, year);
+        
+        if (!Directory.Exists(yearPath)) Directory.CreateDirectory(yearPath);
+        
+        return Path.Combine(yearPath, info.Name);
     }
 }

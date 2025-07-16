@@ -35,9 +35,17 @@ public abstract class FileProcessorBase
         foreach (var directory in directories)
         {
             Logger.LogInformation($"Processing directory '{directory}'");
-            var subDirectories = Directory.GetDirectories(directory);
-            ProcessDirectories(subDirectories);
-            ProcessFiles(Directory.GetFiles(directory));
+            try
+            {
+                var subDirectories = Directory.GetDirectories(directory);
+                ProcessDirectories(subDirectories);
+                ProcessFiles(Directory.GetFiles(directory));
+            }
+            catch (UnauthorizedAccessException)
+            {
+                Logger.LogError("Unable to process {dir} access denied", directory);
+            }
+
         }
     }
     
@@ -85,7 +93,7 @@ public abstract class FileProcessorBase
         if (Options.WhatIf)
         {
             Logger.LogInformation(
-                $"WhatIf moving {file.FullName} to {Path.Combine(outputDirectory, file.Name)}");
+                $"WhatIf moving {file.FullName} to {_outputDirector.GetOutputDirectoryForFile(file, destination)}");
         }
         else
         {
